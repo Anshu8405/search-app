@@ -3,7 +3,7 @@ import Enzyme, { shallow, mount } from 'enzyme';
 import { Search } from "./Search";
 import { Adapter } from "enzyme-adapter-react-16";
 
-Enzyme.configure({adapter = new  Adapter()});
+//Enzyme.configure({adapter = new  Adapter()});
 
 describe("Search Component",() => {
     test("render", () => {
