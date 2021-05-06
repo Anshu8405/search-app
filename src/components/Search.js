@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { debounce } from '../util/utility';
 import { getReq } from '../util/apiUtil';
+import { messages } from '../util/messages';
 import BreedInfo from './BreedInfo';
 
 import './Search.css';
@@ -41,7 +42,7 @@ class Search extends Component {
                     || a?.life_span?.localeCompare(b?.life_span));
                 this.updateSearchRes('succeeded', res);
             } catch (error) {
-                this.updateSearchRes('failed', [], error.status || error.message || 'Oops! Something went wrong');
+                this.updateSearchRes('failed', [], error.message || messages.serverErrorMsg);
             }
         } else {
             this.updateSearchRes('idle');
@@ -62,11 +63,11 @@ class Search extends Component {
         const { searchKey, loaderStatus, breedList, errorMessage } = this.state;
 
         return (
-            <div>
+            <>
                 <input className="form-control"
                     aria-label="search"
                     name="search"
-                    placeholder="Search breed by name"
+                    placeholder={messages.searchBreedMsg}
                     onChange={this.handleInputChange}
                     value={searchKey}
                     autoComplete={'off'}
@@ -77,14 +78,14 @@ class Search extends Component {
                         {
                             loaderStatus === 'loading' ? <div className="loader"></div> :
                                 <>
-                                    {loaderStatus !== 'idle' && <h4>Showing results for <span className="blueBG">{searchKey}</span></h4>}
+                                    {loaderStatus !== 'idle' && <h4>{messages.showingResultsMsg} <span className="blue-text">{searchKey}</span></h4>}
                                     {loaderStatus === 'succeeded' ? <>
                                         {
                                             breedList?.length ?
                                                 <div className="container">
-                                                    {breedList.map(breedData => <BreedInfo data={breedData} key={breedData.id.toString()} />)}
+                                                    {breedList.map(breedData => <BreedInfo data={breedData} key={breedData?.id?.toString()} />)}
                                                 </div>
-                                                : 'We Couldn\'t find a match. Please try another search.'
+                                                : messages.tryAnotherSearchMsg
                                         }
                                     </> : loaderStatus === 'failed' ? <div className="error">Error: {errorMessage}</div> :
                                         null}
@@ -92,9 +93,9 @@ class Search extends Component {
                         }
                     </>
                 }
-            </div>
+            </>
         )
     }
 }
 
-export default Search
+export default Search;

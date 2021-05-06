@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
-
 import { getReq } from '../util/apiUtil';
+import { messages } from '../util/messages';
+
 import './BreedInfo.css';
 
 class BreedInfo extends PureComponent {
@@ -27,10 +28,10 @@ class BreedInfo extends PureComponent {
                 const res = await getReq(`images/${data?.reference_image_id}`);
                 this.updateImageRes('succeeded', res?.url);
             } catch (error) {
-                this.updateImageRes('failed', '', error?.message || 'Failed to load preview');
+                this.updateImageRes('failed', '', error?.message || messages.failedPreviewMsg);
             }
         } else {
-            this.updateImageRes('failed', '', 'Preview is not available');
+            this.updateImageRes('failed', '', messages.previewNotAvailableMsg);
         }
     }
 
@@ -56,10 +57,8 @@ class BreedInfo extends PureComponent {
                     {
                         loaderStatus === 'loading' ? <div className="loader"></div> :
                             loaderStatus === 'succeeded' ?
-                                imageURL ? <img className="card-img" src={imageURL} alt="Breed info" />
-                                    : 'Preview is not available'
-                                : loaderStatus === 'failed' ? <div>{errorMessage}</div> :
-                                    null
+                                imageURL ? <img className="card-img" src={imageURL} alt="Breed info" /> : messages.previewNotAvailableMsg
+                                : loaderStatus === 'failed' ? <div>{errorMessage}</div> : null
                     }
                 </div>
                 <div className="card-body">
