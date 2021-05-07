@@ -12,9 +12,31 @@ class Search extends Component {
         super(props)
         this.state = {
             searchKey: '',
-            loaderStatus: 'idle',
+            loaderStatus: 'loading',  //  'idle',
             breedList: [],
-            errorMessage: null
+            errorMessage: null,
+            allBreeds: []
+        }
+    }
+
+    componentDidMount() {
+        this.getAllBreeds();
+    }
+
+    getAllBreeds = async () => {
+        try {
+            const res = await getReq(`breeds?page=1&limit=20`);
+            this.setState({
+                loaderStatus: 'succeeded',
+                allBreeds: res,
+                errorMessage: ''
+            });
+        } catch (error) {
+            this.setState({
+                loaderStatus: 'failed',
+                allBreeds: [],
+                errorMessage: error.message || messages.serverErrorMsg
+            });
         }
     }
 
@@ -60,7 +82,10 @@ class Search extends Component {
 
 
     render() {
-        const { searchKey, loaderStatus, breedList, errorMessage } = this.state;
+        let { searchKey, loaderStatus, breedList, errorMessage, allBreeds } = this.state;
+        if (!searchKey) {
+            breedList = allBreeds;
+        }
 
         return (
             <>
@@ -78,28 +103,23 @@ class Search extends Component {
                         <span className="input-group-text" id="search-addon"><i className="fa fa-search"></i></span>
                     </div>
                 </div>
-
-                {searchKey &&
-                    <>
-                        {
-                            loaderStatus === 'loading' ? <div className="loader-center-align">
-                                <div className="loader"></div>
-                            </div> :
-                                <>
-                                    {loaderStatus !== 'idle' && <h4>{messages.showingResultsMsg} <span className="blue-text">{searchKey}</span></h4>}
-                                    {loaderStatus === 'succeeded' ? <>
-                                        {
-                                            breedList?.length ?
-                                                <div className="container">
-                                                    {breedList.map(breedData => <BreedInfo data={breedData} key={breedData?.id?.toString()} />)}
-                                                </div>
-                                                : messages.tryAnotherSearchMsg
-                                        }
-                                    </> : loaderStatus === 'failed' ? <div className="error">Error: {errorMessage}</div> :
-                                        null}
-                                </>
-                        }
-                    </>
+                {
+                    loaderStatus === 'loading' ? <div className="loader-center-align">
+                        <div className="loader"></div>
+                    </div> :
+                        <>
+                            {searchKey && loaderStatus !== 'idle' && <h4>{messages.showingResultsMsg} <span className="blue-text">{searchKey}</span></h4>}
+                            {loaderStatus === 'succeeded' || loaderStatus === 'idle' ? <>
+                                {
+                                    breedList?.length ?
+                                        <div className="container">
+                                            {breedList.map(breedData => <BreedInfo data={breedData} key={breedData?.id?.toString()} />)}
+                                        </div>
+                                        : searchKey ? messages.tryAnotherSearchMsg : messages.noRecordsFoundMsg
+                                }
+                            </> : loaderStatus === 'failed' ? <div className="error">Error: {errorMessage}</div> :
+                                null}
+                        </>
                 }
             </>
         )

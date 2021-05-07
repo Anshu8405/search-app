@@ -22,17 +22,20 @@ class BreedInfo extends PureComponent {
 
     getImagePath = async () => {
         const { data } = this.props;
-
-        if (data?.reference_image_id) {
-            this.updateImageRes('loading');
-            try {
-                const res = await getReq(`images/${data?.reference_image_id}`);
-                this.updateImageRes('succeeded', res?.url);
-            } catch (error) {
-                this.updateImageRes('failed', '', error?.message || messages.failedPreviewMsg);
-            }
+        if (data?.image?.url) {
+            this.updateImageRes('succeeded', data?.image?.url);
         } else {
-            this.updateImageRes('failed', '', messages.previewNotAvailableMsg);
+            if (data?.reference_image_id) {
+                this.updateImageRes('loading');
+                try {
+                    const res = await getReq(`images/${data?.reference_image_id}`);
+                    this.updateImageRes('succeeded', res?.url);
+                } catch (error) {
+                    this.updateImageRes('failed', '', error?.message || messages.failedPreviewMsg);
+                }
+            } else {
+                this.updateImageRes('failed', '', messages.previewNotAvailableMsg);
+            }
         }
     }
 
