@@ -50,7 +50,7 @@ class BreedInfo extends PureComponent {
     renderDefaultDogPreview = (errorMessage) => {
         return (
             <>
-                <img className="card-img" src={dogPreviewGif} alt="Default dog preview" />
+                <img className="card-img default-img" src={dogPreviewGif} alt="Default dog preview" />
                 <div className="card-image-text">{errorMessage}</div>
             </>
         )

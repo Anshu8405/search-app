@@ -11,8 +11,12 @@
     flex: 0 0 auto;
     flex-basis: content;
     margin-bottom: 2%; 
-    margin-right: 5%;
+    margin-right: 1.1%;
     width: 18rem
+}
+
+.default-img {
+    height:15vw !important;
 }
 
 .card-image-text {
