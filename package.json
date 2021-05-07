@@ -16,6 +16,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "eject": "react-scripts eject",
+    "start:development": "env-cmd -f .env.development npm run start",
+    "build:qa": "env-cmd -f .env.qa npm run build",
+    "build:production": "env-cmd -f .env.production npm run build",
     "test": "jest --verbose",
     "test:watch": "jest --watchAll --verbose",
     "test:coverage": "jest --verbose --coverage"

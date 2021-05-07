@@ -1,10 +1,8 @@
-import { BASE_API, BASE_API_KEY } from '../instance';
-
 export const getReq = (urlName) => {
-    return fetch(`${BASE_API}${urlName}`, {
+    return fetch(`${process.env.REACT_APP_API_URL}${urlName}`, {
         method: "GET",
         headers: {
-            "x-api-key": BASE_API_KEY,
+            "x-api-key": process.env.REACT_APP_API_KEY,
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Credentials': true
         }
