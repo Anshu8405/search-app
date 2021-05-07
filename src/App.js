@@ -1,12 +1,11 @@
-import logo from './logo.svg';
 import './App.css';
-import Search from './components/Search';
+import Search from './components/Search/Search';
 
 function App() {
   return (
     <>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+        Welcome to My Dog Search
       </header>
       <div className="container-fluid">
         <Search />

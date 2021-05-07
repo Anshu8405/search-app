@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
-import { getReq } from '../util/apiUtil';
-import { messages } from '../util/messages';
+import { getReq } from '../../util/apiUtil';
+import { messages } from '../../util/messages';
 
 import './BreedInfo.css';
 
@@ -62,7 +62,7 @@ class BreedInfo extends PureComponent {
                     }
                 </div>
                 <div className="card-body">
-                    <p><b>Name: </b> {data?.name || 'N/A'}</p>
+                    <p><b>Breed name: </b> {data?.name || 'N/A'}</p>
                     <p><b>Lifespan: </b> {data?.life_span || 'N/A'}</p>
                     <p><b>Bred For: </b> {data?.bred_for || 'N/A'}</p>
 

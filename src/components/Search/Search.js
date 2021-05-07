@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import { debounce } from '../util/utility';
-import { getReq } from '../util/apiUtil';
-import { messages } from '../util/messages';
-import BreedInfo from './BreedInfo';
+import { debounce } from '../../util/utility';
+import { getReq } from '../../util/apiUtil';
+import { messages } from '../../util/messages';
+import BreedInfo from '../BreedInfo/BreedInfo';
 
 import './Search.css';
 
@@ -64,14 +64,20 @@ class Search extends Component {
 
         return (
             <>
-                <input className="form-control"
-                    aria-label="search"
-                    name="search"
-                    placeholder={messages.searchBreedMsg}
-                    onChange={this.handleInputChange}
-                    value={searchKey}
-                    autoComplete={'off'}
-                />
+                <div className="input-group">
+                    <input className="form-control"
+                        aria-label="search"
+                        name="search"
+                        placeholder={messages.searchBreedMsg}
+                        onChange={this.handleInputChange}
+                        value={searchKey}
+                        autoComplete={'off'}
+                        aria-describedby="search-addon"
+                    />
+                    <div className="input-group-append">
+                        <span className="input-group-text" id="search-addon"><i className="fa fa-search"></i></span>
+                    </div>
+                </div>
 
                 {searchKey &&
                     <>

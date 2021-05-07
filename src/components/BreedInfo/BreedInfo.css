@@ -19,7 +19,7 @@
     width:100%;
     border-top-left-radius:calc(.25rem - 1px);
     border-top-right-radius:calc(.25rem - 1px);
-    object-fit: cover;
+    object-fit: contain;
     height: 20vw;
 }
 
