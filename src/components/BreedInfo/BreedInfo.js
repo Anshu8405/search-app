@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import { getReq } from '../../util/apiUtil';
 import { messages } from '../../util/messages';
+import dogPreviewGif from '../../assets/dog-preview.gif';
 
 import './BreedInfo.css';
 
@@ -43,6 +44,16 @@ class BreedInfo extends PureComponent {
         });
     }
 
+    renderDefaultDogPreview = (errorMessage) => {
+        return (
+            <>
+                <img className="card-img" src={dogPreviewGif} alt="Default dog preview" />
+                <div className="card-image-text">{errorMessage}</div>
+            </>
+        )
+    }
+
+
     render() {
         const {
             loaderStatus,
@@ -55,10 +66,12 @@ class BreedInfo extends PureComponent {
             <div className="card">
                 <div className="card-image-block">
                     {
-                        loaderStatus === 'loading' ? <div className="loader"></div> :
+                        loaderStatus === 'loading' ? <div className="loader-center-align">
+                            <div className="loader"></div>
+                        </div> :
                             loaderStatus === 'succeeded' ?
-                                imageURL ? <img className="card-img" src={imageURL} alt="Breed info" /> : messages.previewNotAvailableMsg
-                                : loaderStatus === 'failed' ? <div>{errorMessage}</div> : null
+                                imageURL ? <img className="card-img" src={imageURL} alt="Breed info" /> : this.renderDefaultDogPreview(messages.previewNotAvailableMsg)
+                                : loaderStatus === 'failed' ? this.renderDefaultDogPreview(errorMessage) : null
                     }
                 </div>
                 <div className="card-body">

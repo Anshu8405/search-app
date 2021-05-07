@@ -15,12 +15,20 @@
     width: 18rem
 }
 
+.card-image-text {
+    background: lightgray;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    padding: 3px 0px;
+}
+
 .card-img {
     width:100%;
     border-top-left-radius:calc(.25rem - 1px);
     border-top-right-radius:calc(.25rem - 1px);
     object-fit: contain;
-    height: 20vw;
+    height: 19vw;
 }
 
 .card-image-block {

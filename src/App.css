@@ -13,10 +13,14 @@
   margin-left: 10%;
 }
 
+.loader-center-align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:70px;
+}
 .loader {
   position: absolute;
-  left: 50%;
-  top: 30%;
   z-index: 1;
   border: 10px solid #f3f3f3;
   border-radius: 50%;

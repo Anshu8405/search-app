@@ -82,7 +82,9 @@ class Search extends Component {
                 {searchKey &&
                     <>
                         {
-                            loaderStatus === 'loading' ? <div className="loader"></div> :
+                            loaderStatus === 'loading' ? <div className="loader-center-align">
+                                <div className="loader"></div>
+                            </div> :
                                 <>
                                     {loaderStatus !== 'idle' && <h4>{messages.showingResultsMsg} <span className="blue-text">{searchKey}</span></h4>}
                                     {loaderStatus === 'succeeded' ? <>
